@@ -1,0 +1,46 @@
+{
+  "name": "@gurvirsingh/server-auth",
+  "version": "0.0.1",
+  "description": "Simplifying secure user authentication for Next.js apps on the server and client-side.",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/gurvirsingh/server-auth.git"
+  },
+  "keywords": [
+    "server-auth",
+    "user",
+    "authentication",
+    "Next.js",
+    "server-side",
+    "client-side",
+    "secure",
+    "JWT",
+    "OAuth",
+    "session",
+    "management",
+    "access",
+    "control"
+  ],
+  "author": "Gurvir Singh <gurvirsingh.baraich@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/next": "^9.0.0",
+    "@types/node": "^20.11.29",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "concurrently": "^8.2.2",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "jose": "^5.2.3"
+  }
+}
