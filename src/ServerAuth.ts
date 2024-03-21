@@ -1,7 +1,9 @@
 import { handler } from "@/handler";
 import { ServerAuthConfiguration } from "@/interface";
-import { SignJWT } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import { NextRequest } from "next/server";
+
+export let serverAuth: null | ServerAuth = null;
 
 export class ServerAuth<T = any> {
   /**
@@ -26,6 +28,12 @@ export class ServerAuth<T = any> {
           .setExpirationTime(`${24 * 60 * 60} sec from now`)
           .sign(secretUnit8Array);
       },
+
+      decrypt: (token: string) => {
+        return jwtVerify(token, secretUnit8Array, {
+          algorithms: ["HS256"],
+        });
+      },
     };
   }
 
@@ -40,12 +48,14 @@ export class ServerAuth<T = any> {
 
     if (!secret) {
       throw new Error(
-        "The'secret' property is required in the ServerAuthConfiguration object."
+        "The'secret' property is required in the ServerAuthConfiguration object.",
       );
     }
 
     this.secretUnit8Array = new TextEncoder().encode(secret);
     this.serverAuthConfiguration = configuration;
+
+    serverAuth = this;
   }
 }
 

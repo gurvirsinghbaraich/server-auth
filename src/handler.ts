@@ -102,15 +102,22 @@ const signInHandler = async (request: NextRequest, serverAuth: ServerAuth) => {
   }
 
   const sessionCookieValue = await signIn(payload, serverAuth);
-  return new NextResponse(
+
+  const response = new NextResponse(
     `<script>window.location.href = '${request.nextUrl.origin}'</script>`,
     {
       headers: {
         "Content-Type": "text/html",
-        "Set-Cookie": sessionCookieValue,
       },
     }
   );
+
+  response.cookies.set("session", sessionCookieValue, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+  });
+
+  return response;
 };
 
 /**
